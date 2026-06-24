@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Diamond Petroleum</title>
+    <style>
+        :root {
+            --bg: #f7f9fc;
+            --surface: #ffffff;
+            --text: #102a43;
+            --muted: #52677a;
+            --primary: #0b5ed7;
+            --primary-soft: #dbe7ff;
+            --border: #e2e8f0;
+            --accent: #0f766e;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .layout {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.75);
+            z-index: 20;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.75rem 0;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            font-size: 0.85rem;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .brand .tagline {
+            margin: 0.25rem 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+        }
+
+        .desktop-nav a {
+            font-weight: 600;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a:focus-visible {
+            color: var(--text);
+        }
+
+        .mobile-menu-button {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 0.85rem;
+            padding: 0.65rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .mobile-menu-button:hover {
+            background: rgba(15, 23, 42, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: inline-flex;
+            }
+
+            .mobile-nav {
+                width: 100%;
+                padding: 1rem 0 0;
+            }
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 0 4rem;
+            background: linear-gradient(180deg, rgba(11, 94, 215, 0.06), rgba(247, 249, 252, 0.95));
+            border-radius: 2rem;
+        }
+
+        .hero::before,
+        .hero::after {
+            opacity: 0.65;
+        }
+
+        .hero-copy {
+            max-width: 640px;
+        }
+
+        .hero h2 {
+            margin: 0;
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            line-height: 1.05;
+        }
+
+        .hero p {
+            color: var(--muted);
+            margin: 1.5rem 0 0;
+            font-size: 1.05rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .hero-values {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+
+        .hero-value {
+            background: rgba(11, 94, 215, 0.08);
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(11, 94, 215, 0.12);
+        }
+
+        .hero-value strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .hero-value span {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .button,
+        .button-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.95rem 1.6rem;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .button {
+            background: var(--primary);
+            color: white;
+            border: 1px solid transparent;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            background: #0a52b0;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(11, 94, 215, 0.18);
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .button-secondary:hover,
+        .button-secondary:focus-visible {
+            background: rgba(11, 94, 215, 0.08);
+            color: var(--text);
+            transform: translateY(-1px);
+        }
+
+        .feature-card,
+        .contact-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .feature-card:hover,
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 22px 55px rgba(15, 23, 42, 0.08);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, rgba(29, 78, 216, 0.18), transparent 65%);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: -12%;
+            left: -6%;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(15, 118, 110, 0.14), transparent 60%);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+        }
+
+        .hero-panel {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .visual-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), #ffffff);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
+        }
+
+        .visual-card h3 {
+            margin: 0;
+            font-size: 1.15rem;
+        }
+
+        .visual-card p {
+            margin: 1rem 0 0;
+            color: var(--muted);
+        }
+
+        .visual-chart {
+            display: grid;
+            gap: 1rem;
+            padding: 1rem 0 0;
+        }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chart-label {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .chart-bar {
+            width: 100%;
+            height: 0.75rem;
+            border-radius: 999px;
+            background: var(--border);
+            overflow: hidden;
+        }
+
+        .chart-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .hero-card p {
+            margin: 1rem 0 0;
+            color: var(--muted);
+        }
+
+        .stat-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-card span {
+            display: block;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-card p {
+            margin: 0.75rem 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        section {
+            padding: 3rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .section-header span {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.8rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .feature-card,
+        .contact-card {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .feature-card h3,
+        .contact-card h3 {
+            margin-top: 0;
+        }
+
+        .feature-card p,
+        .contact-card p {
+            margin: 1rem 0 0;
+            color: var(--muted);
+        }
+
+        .contact-card {
+            background: var(--primary-soft);
+            border-color: rgba(11, 94, 215, 0.16);
+        }
+
+        .contact-card.white {
+            background: #ffffff;
+            border-color: var(--border);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+        }
+
+        footer p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-grid>div {
+            min-width: 220px;
+            flex: 1;
+        }
+
+        .footer-grid h3 {
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .footer-nav {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .footer-nav a {
+            color: var(--muted);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .footer-nav a:hover,
+        .footer-nav a:focus-visible {
+            color: var(--text);
+        }
+
+        .footer-bottom {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (min-width: 900px) {
+            .hero {
+                grid-template-columns: 1.1fr 0.9fr;
+                align-items: center;
+            }
+
+            .hero-copy {
+                max-width: 600px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="layout brand">
+            <div class="brand-logo">
+                <div class="logo-mark">GD</div>
+                <div>
+                    <h1>Global Diamond Petroleum</h1>
+                    <p class="tagline">Petroleum supply, logistics and trading excellence</p>
+                </div>
+            </div>
+            <nav class="desktop-nav">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="mobile-menu-button" type="button" aria-expanded="false" aria-label="Toggle navigation">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main class="layout">
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-copy">
+                    <p
+                        style="margin: 0; color: var(--primary); letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.85rem;">
+                        Petroleum Supply & Trading</p>
+                    <h2>Delivering dependable oil and fuel supply with confidence, clarity and commercial discipline.
+                    </h2>
+                    <p>We help customers reduce cost exposure, secure critical feedstock, and keep downstream operations
+                        moving with stronger predictability.</p>
+                    <div class="hero-actions">
+                        <a class="button" href="#contact">Secure supply now</a>
+                        <a class="button-secondary" href="#services">Learn our capabilities</a>
+                    </div>
+                    <div class="hero-values">
+                        <div class="hero-value">
+                            <strong>Supply certainty</strong>
+                            <span>Reliable crude, diesel and jet fuel deliveries backed by logistics and inventory
+                                planning.</span>
+                        </div>
+                        <div class="hero-value">
+                            <strong>Margin protection</strong>
+                            <span>Market-aware buying strategies and flexible trading support.</span>
+                        </div>
+                        <div class="hero-value">
+                            <strong>Operational visibility</strong>
+                            <span>Clear shipment tracking and terminal coordination across every handoff.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-panel">
+                    <div class="visual-card">
+                        <p
+                            style="margin: 0; color: var(--primary); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.85rem; font-weight: 700;">
+                            Trusted by supply chain operators</p>
+                        <h3>Oil market intelligence, logistics control, and commodity risk management.</h3>
+                        <p>Our team combines physical supply expertise with trading insight to keep product moving on
+                            time and on budget.</p>
+                        <div class="visual-chart">
+                            <div class="chart-row">
+                                <div class="chart-label">Efficiency improvement</div>
+                                <div class="chart-bar">
+                                    <div class="chart-fill" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                            <div class="chart-row">
+                                <div class="chart-label">Project delivery</div>
+                                <div class="chart-bar">
+                                    <div class="chart-fill" style="width: 82%;"></div>
+                                </div>
+                            </div>
+                            <div class="chart-row">
+                                <div class="chart-label">Client satisfaction</div>
+                                <div class="chart-bar">
+                                    <div class="chart-fill" style="width: 95%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span>20+</span>
+                            <p>Years expertise</p>
+                        </div>
+                        <div class="stat-card">
+                            <span>100+</span>
+                            <p>Projects delivered</p>
+                        </div>
+                        <div class="stat-card">
+                            <span>95%</span>
+                            <p>Client satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="section-header">
+                <span>About</span>
+                <h2>Oil, fuel and refinery supply expertise for market-focused operators.</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Integrated supply solutions</h3>
+                    <p>From crude sourcing to product delivery, we provide commercial and operational support across
+                        the full fuel value chain.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Logistics coordination</h3>
+                    <p>Optimized routing and terminal capacity management that keeps shipments moving safely and
+                        efficiently.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Regulatory compliance</h3>
+                    <p>We help maintain permit readiness, customs alignment, and safety standards for petroleum and
+                        fuel operations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="section-header">
+                <span>Services</span>
+                <h2>Services for oil, fuel and petrochemical supply chains.</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Crude and product sourcing</h3>
+                    <p>Market sourcing and contract management for crude oil, jet fuel, diesel and refinery feedstocks.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3>Logistics and distribution</h3>
+                    <p>Coordinated transport, storage and terminal planning that improves throughput and lowers cost.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3>Trading support</h3>
+                    <p>Pricing intelligence, hedging guidance and commercial execution support for petroleum trading
+                        desks.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="section-header">
+                <span>Testimonials</span>
+                <h2>What our clients say about our petroleum supply execution.</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>“A trusted partner for our fuel portfolio.”</h3>
+                    <p>“Their commercial insight and logistics coordination helped us secure timely crude deliveries
+                        during a volatile market.”</p>
+                    <p style="margin-top: 1rem; font-weight: 700; color: var(--text);">— Supply Director, Midstream
+                        Operator</p>
+                </div>
+                <div class="feature-card">
+                    <h3>“Clear, actionable trading support.”</h3>
+                    <p>“The team’s pricing analysis and hedge recommendations improved our fuel margins and reduced
+                        risk.”</p>
+                    <p style="margin-top: 1rem; font-weight: 700; color: var(--text);">— VP, Refinery Trading</p>
+                </div>
+                <div class="feature-card">
+                    <h3>“Reliable chain performance.”</h3>
+                    <p>“We achieved stronger terminal utilization and fewer supply disruptions with their operational
+                        oversight.”</p>
+                    <p style="margin-top: 1rem; font-weight: 700; color: var(--text);">— COO, Fuel Distribution</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-header">
+                <span>Contact</span>
+                <h2>Discuss your next petroleum supply or fuel logistics project.</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="contact-card">
+                    <h3>Schedule a consultation</h3>
+                    <p>Reach out to our team to explore opportunities, book a discovery call, or request a tailored
+                        proposal.</p>
+                    <p style="margin: 1.5rem 0 0;"><strong>Email:</strong> contact@globaldiamondpetroleum.com</p>
+                    <p style="margin: 0.5rem 0 0;"><strong>Phone:</strong> +1 (800) 555-0123</p>
+                </div>
+                <div class="contact-card white">
+                    <h3>Quick contact form</h3>
+                    <form style="display: grid; gap: 1rem; margin-top: 1rem;">
+                        <label style="display: grid; gap: 0.5rem; font-weight: 600; color: var(--text);">
+                            Name
+                            <input type="text" placeholder="Jane Doe"
+                                style="width: 100%; padding: 0.9rem 1rem; border: 1px solid #d1d5db; border-radius: 0.75rem; font: inherit;" />
+                        </label>
+                        <label style="display: grid; gap: 0.5rem; font-weight: 600; color: var(--text);">
+                            Email
+                            <input type="email" placeholder="jane@example.com"
+                                style="width: 100%; padding: 0.9rem 1rem; border: 1px solid #d1d5db; border-radius: 0.75rem; font: inherit;" />
+                        </label>
+                        <label style="display: grid; gap: 0.5rem; font-weight: 600; color: var(--text);">
+                            Message
+                            <textarea rows="4" placeholder="Tell us about your project"
+                                style="width: 100%; padding: 0.9rem 1rem; border: 1px solid #d1d5db; border-radius: 0.75rem; font: inherit;"></textarea>
+                        </label>
+                        <button type="submit"
+                            style="border: none; cursor: pointer; padding: 0.95rem 1.6rem; border-radius: 999px; background: var(--primary); color: white; font-weight: 600;">Send
+                            message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="layout footer-grid">
+            <div>
+                <h3>Global Diamond Petroleum</h3>
+                <p>Empowering petroleum buyers and fuel logistics teams with dependable supply, trading and operations
+                    expertise.</p>
+            </div>
+            <div>
+                <h3>Explore</h3>
+                <div class="footer-nav">
+                    <a href="#about">About</a>
+                    <a href="#services">Services</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p style="margin: 0.25rem 0 0;">contact@globaldiamondpetroleum.com</p>
+                <p style="margin: 0.5rem 0 0;">+1 (800) 555-0123</p>
+            </div>
+        </div>
+        <div class="layout footer-bottom">
+            <p>&copy; 2026 Global Diamond Petroleum. All rights reserved.</p>
+            <p>Designed for petroleum and fuel supply leaders with strong commercial and operational performance.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileNav = document.getElementById('mobileNav');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileNav.classList.toggle('open');
+            mobileMenuButton.setAttribute('aria-expanded', String(!expanded));
+        });
+    </script>
+</body>
+
+</html>
