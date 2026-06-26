@@ -824,15 +824,15 @@
                     <form action="https://formspree.io/f/mkolrgwj" method="POST" class="contact-form">
                         <label class="contact-label">
                             Name
-                            <input class="contact-input" type="text" placeholder="Jane Doe" />
+                            <input required class="contact-input" type="text" placeholder="Jane Doe" />
                         </label>
                         <label class="contact-label">
                             Email
-                            <input class="contact-input" type="email" placeholder="jane@example.com" />
+                            <input required class="contact-input" type="email" placeholder="jane@example.com" />
                         </label>
                         <label class="contact-label">
                             Message
-                            <textarea class="contact-textarea" rows="4"
+                            <textarea class="contact-textarea" rows="4" required
                                 placeholder="Tell us about your project"></textarea>
                         </label>
                         <button class="contact-submit" type="submit">Send message</button>
